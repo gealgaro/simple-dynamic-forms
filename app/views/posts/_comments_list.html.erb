@@ -1,0 +1,16 @@
+<div class="link2">Comments</div>
+<br />
+<% @comments.each do |comment| %>
+<div class="commentDiv">
+  <div style="float: left;">
+    <%= image_tag gravatar_url_for comment.email %>
+  </div>
+  <div>
+    <p class="postInfo"><%=comment.created_at.strftime('%b %d %Y, %H:%M ')%><%=h comment.author %> said:</p>
+    <p><%=h comment.body %></p>
+  </div>
+  <%= link_to 'Edit', edit_post_comment_path(comment) %>
+  <%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %>
+</div>
+<br />
+<% end %>

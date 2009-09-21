@@ -1,2 +1,16 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<%= link_to 'New post', new_post_path, :class => 'link1' if logged_in? %>
+<% @posts.each do |post| %>
+  <div class="postBlock">
+    <div class="tbmargin">
+      <div><%= link_to post.title, post, :class => 'postTitle' %>&nbsp;<%= link_to 'Edit', edit_post_path(post), :class => 'link1' if logged_in? %>&nbsp;<%= link_to 'Destroy', post, :class => 'link1', :confirm => 'Are you sure?', :method => :delete  if logged_in? %></div>
+      <div class="postInfo"><%=h post.created_at.strftime('Posted %b %d %Y, %H:%M') %> | <%=h post.updated_at.strftime('Last Updated %b %d %Y, %H:%M') %> | <%= Comment.find_all_by_post_id(post.id).count %> Coments</div>
+      <hr style="border: 1px solid #BBBBBB;"/>
+    </div>
+    <div class="tbmargin">
+      <div class="postContent"><%=h post.body %></div>
+    </div>
+    <div class="tbmargin">
+      <div class="postFooter">ShareThis</div>
+    </div>
+  </div>
+<% end %>
